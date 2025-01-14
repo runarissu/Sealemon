@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="unity-container">
-      <canvas id="unity-canvas" width=1280 height=720 tabindex="-1"></canvas>
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -19,7 +19,28 @@
       </div>
       <div id="unity-warning"> </div>
     </div>
-    <script>
+	<script>
+				function resizeGame() {
+					var gameContainer = document.getElementById("unity-container");
+					var widthToHeight = 16 / 9;
+					var newWidth = window.innerWidth;
+					var newHeight = window.innerHeight;
+					var newWidthToHeight = newWidth / newHeight;
+
+					if (newWidthToHeight > widthToHeight) {
+						newWidth = newHeight * widthToHeight;
+					} else {
+						newHeight = newWidth / widthToHeight;
+					}
+
+					gameContainer.style.width = newWidth + "px";
+					gameContainer.style.height = newHeight + "px";
+				}
+
+				window.addEventListener("resize", resizeGame, false);
+				resizeGame();
+		</script>
+	    <script>
       window.addEventListener("load", function () {
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker.register("ServiceWorker.js");
